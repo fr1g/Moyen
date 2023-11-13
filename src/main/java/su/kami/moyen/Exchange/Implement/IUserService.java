@@ -10,6 +10,7 @@ import java.util.List;
 public interface IUserService {
 
     boolean IsAdminExist();
+    void UpdateAdmin(String code);
     void CreateUser(User user);
     void DisableUser(int uid);
     List<User> GetUsersPaged(int page);

@@ -1,5 +1,9 @@
 package su.kami.moyen.Model;
 
+import org.springframework.http.ResponseEntity;
+
+import java.net.http.HttpResponse;
+
 public class Return<T extends String> {
     private int code;
     private T content;
@@ -28,5 +32,8 @@ public class Return<T extends String> {
         this.code = 418;
         this.content = (T) "I'm a Teapot!";
         return this.toString();
+    }
+    public ResponseEntity<String> NewEntity(){
+        return ResponseEntity.ok(New());
     }
 }

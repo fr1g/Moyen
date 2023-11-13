@@ -1,10 +1,13 @@
 package su.kami.moyen;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import reactor.util.annotation.Nullable;
 import su.kami.moyen.Helper.AdminCodeHelper;
+import su.kami.moyen.Helper.AdminCodeHelperBridge;
 
 import java.util.Scanner;
 
@@ -18,13 +21,17 @@ public class MoyenApplication {
         _resetComplete = "Done: reset password code. Please set the \"m.code\" property to \"inherit\" to keep this password.",
         _unknownErr = "Unknown Error happened. ";
 
-    @Nullable
-    private static AdminCodeHelper _ach = new AdminCodeHelper();
+//    @Autowired
+    static AdminCodeHelper _ach = new AdminCodeHelper();
+
+    @Value("${m.code}")
+    static String updateAdminCode;
 
     public static void main(String[] args) {
-        var configurePreload = SpringApplication.run(MoyenApplication.class, args);
         try{
-            var updateAdminCode = configurePreload.getEnvironment().getProperty("m.code");
+            var configurePreload = SpringApplication.run(MoyenApplication.class, args);
+            var updateAdminCodeAnother = configurePreload.getEnvironment().getProperty("m.code");
+            System.out.println("get dis: " + updateAdminCode + " + " + updateAdminCodeAnother);
             if(updateAdminCode != null) if(!updateAdminCode.equals("inherit")) {
                 var scan = new Scanner(System.in);
                 System.out.println(_newPwdReq);
@@ -34,7 +41,7 @@ public class MoyenApplication {
                     var typeIn = scan.nextLine();
                     if(typeIn != null){
                         if (updateAdminCode.equals(typeIn)) {
-                            assert _ach != null : "ASSERT: _ach == null? (C:C# --- null! \\/\\/ AdminCodeHelper? reference cannot set to a null object. )";
+                           // assert _ach != null : "ASSERT: _ach == null? (C:C# --- null! \\/\\/ AdminCodeHelper? reference cannot set to a null object. )";
                             _ach.SubmitNewCode(typeIn);
                             System.out.println(_resetComplete + "\n\n============");
                         }else System.out.println(_notMatchYield + retry + "\n" + _newPwdReq);
@@ -44,8 +51,8 @@ public class MoyenApplication {
         }catch (Exception ex){
             System.err.println(_unknownErr);
             ex.printStackTrace();
-        }finally {
-            System.out.println("\n========\nUnhandled.");
         }
+        return;
     }
+
 }
