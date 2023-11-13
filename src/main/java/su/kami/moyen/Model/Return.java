@@ -19,8 +19,8 @@ public class Return<T extends String> {
     @Override
     public String toString(){
         return "{ \"code\": " + this.code +
-                ", \"content\": " + this.content.toString() +
-                "}";
+                ", \"content\": \"" + this.content.toString() +
+                "\" }";
     }
 
     public String New(int code, T content){
