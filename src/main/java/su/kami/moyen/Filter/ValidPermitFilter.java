@@ -18,8 +18,14 @@ public class ValidPermitFilter extends OncePerRequestFilter {
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-        UsernamePasswordAuthenticationToken authentication =
-                TokenHelper.Verify(httpServletRequest.getHeader("token"), "genshin") ?
+        if ("/login".equals(httpServletRequest.getRequestURI())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
+
+        UsernamePasswordAuthenticationToken authentication;
+        if(httpServletRequest.getHeader("token") == null) authentication = null;
+                else authentication = TokenHelper.Verify(httpServletRequest.getHeader("token"), "genshin") ?
                         new UsernamePasswordAuthenticationToken("root", null) : null; // ??? todo ???
         if (null != authentication) {
             // 授权通过 放行

@@ -1,13 +1,11 @@
 package su.kami.moyen.Exchange.Mapper;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import su.kami.moyen.Model.Service;
 
 import java.util.List;
 
+@Mapper
 public interface IServicesMapper {
     @Select("select * from services where 1 = 1 limit #{page}, 6")
     List<Service> GetPagedServices(int page);

@@ -1,10 +1,13 @@
 package su.kami.moyen.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import reactor.util.annotation.Nullable;
 
 import java.util.Date;
 
 public class Transaction {
+
+    @Nullable
     private int id;
     private User user;
     private Service service;
