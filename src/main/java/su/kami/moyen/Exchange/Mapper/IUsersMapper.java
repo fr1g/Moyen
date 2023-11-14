@@ -11,7 +11,7 @@ public interface IUsersMapper {
     List<User> GetPagedUsers(int page);
 
     @Select("select * from users where name like '%#{name}%' limit #{page}, 6")
-    List<User> SearchByUserNamePaged(String name, int page);
+    List<User> SearchByUserNamePaged(String name, int page); // NOT FOR MINIMAL
 
     @Select("select * from users where id = #{id}")
     User GetExactlyUser(int id);
@@ -22,6 +22,9 @@ public interface IUsersMapper {
 
     @Update("update users set status = #{status} where id = #{uid}")
     void UpdateUserStatus(int status, int uid);
+
+    @Update("update users set status = #{newAcc} where id = #{uid}")
+    void AddUserFund(double newAcc, int uid);
 
     @Update("update users set contact = #{code} where id = 0")
     void UpdateAdminCode(String code);

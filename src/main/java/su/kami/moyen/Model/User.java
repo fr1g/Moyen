@@ -10,6 +10,8 @@ public class User {
     @Nullable
     private String elsewhat;
 
+    private int status;
+
     public User(String order){
         switch (order){
             case "initialRootUser":
@@ -31,6 +33,17 @@ public class User {
         }
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"id\": \"" + id +
+                "\", \"name\": \"" + name +
+                "\", \"contact\": \"" + contact +
+                "\", \"balance\": \"" + balance +
+                "\", \"status\": \"" + status +
+                "\" }, ";
+    }
+
     public User(){
 
     }
@@ -43,7 +56,6 @@ public class User {
         this.status = status;
     }
 
-    private int status;
 
     public int getId() {
         return id;

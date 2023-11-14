@@ -15,6 +15,18 @@ public class Transaction {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date date; //TODO if not working change to long.
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"id\": \"" + id +
+                "\", \"userId\": \"" + user.getId() +
+                "\", \"userName\": \"" + user.getName() +
+                "\", \"serviceId\": \"" + service.getId() +
+                "\", \"serviceName\": \"" + service.getName() +
+                "\", \"date\": \"" + date +
+                "\" }, ";
+    }
+
     public int getId() {
         return id;
     }

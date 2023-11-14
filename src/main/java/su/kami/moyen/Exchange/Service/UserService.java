@@ -42,8 +42,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void DisableUser(int uid) {
-        _user.UpdateUserStatus(9, uid);
+    public void SwitchUserStatus(int uid) {
+        var _preset = _user.GetExactlyUser(uid).getStatus();
+        _user.UpdateUserStatus((_preset == 0 ? 9 : 0), uid);
+    }
+
+    @Override
+    public void UserAddFund(int uid, double add) {
+        var _preset = _user.GetExactlyUser(uid).getBalance();
+        _user.AddUserFund(_preset + add, uid);
     }
 
     @Override

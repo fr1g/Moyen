@@ -7,6 +7,17 @@ public class Service {
     private double cost;
     private String plus;
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"id\": \"" + id +
+                "\", \"name\": \"" + name +
+                "\", \"describe\": \"" + describe +
+                "\", \"cost\": \"" + cost +
+                "\", \"plus\": \"" + plus +
+                "\" }, ";
+    }
+
     public int getId() {
         return id;
     }

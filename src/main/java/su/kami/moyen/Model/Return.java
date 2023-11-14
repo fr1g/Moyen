@@ -36,4 +36,7 @@ public class Return<T extends String> {
     public ResponseEntity<String> NewEntity(){
         return ResponseEntity.ok(New());
     }
+    public ResponseEntity<String> NewEntity(int code, T content){
+        return ResponseEntity.ok(New(code, content));
+    }
 }

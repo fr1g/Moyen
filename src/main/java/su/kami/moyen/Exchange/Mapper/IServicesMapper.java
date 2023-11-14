@@ -26,10 +26,10 @@ public interface IServicesMapper {
     void UpdateService(Service service); //?
 
     @Update("update services set plus = #{plus} where id = #{id}")
-    void UpdatePlus(String plus, int id);
+    void UpdatePlus(String plus, int id); // not for minimal of frontend
 
     @Delete("delete * from services where id = #{id}")
-    void RemoveSingleService(int id);
+    void RemoveSingleService(int id); // useless for proj frontend
 
     @Insert("insert into services(name, `describe`, cost, plus) " +
             "value(#{name}, #{describe}, #{cost}, #{plus})")

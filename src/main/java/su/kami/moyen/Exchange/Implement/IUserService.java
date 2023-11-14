@@ -12,7 +12,8 @@ public interface IUserService {
     boolean IsAdminExist();
     void UpdateAdmin(String code);
     void CreateUser(User user);
-    void DisableUser(int uid);
+    void SwitchUserStatus(int uid);
+    void UserAddFund(int uid, double add);
     List<User> GetUsersPaged(int page);
     User GetExactlyUser(int uid);
 
