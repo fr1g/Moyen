@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
+import su.kami.moyen.Helper.TokenHelper;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -30,10 +31,8 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 //                                            FilterChain chain,
 //                                            Authentication authResult)
 //    throws IOException, ServletException {
-//        CustomUser customUser = (CustomUser) authResult.getPrincipal();
-//
-//        accessLogService.logAccess(customUser.getUsername(), IpUtil.getIpAddress(request), 1, "登录成功");
-//        String token = JwtUtil.createToken(customUser.getUser().getId(), customUser.getUser().getUsername());
+//        var th = new TokenHelper();
+//        String token = th.Create("default");
 //        Map<String, Object> map = new HashMap<>();
 //        map.put("token", token);
 //        ResponseUtil.out(response, Result.ok(map));

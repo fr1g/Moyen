@@ -10,6 +10,9 @@ public interface IUsersMapper {
     @Select("select * from users where 1 = 1 limit #{page}, 6")
     List<User> GetPagedUsers(int page);
 
+    @Select("select * from users where name like '%#{name}%' limit #{page}, 6")
+    List<User> SearchByUserNamePaged(String name, int page);
+
     @Select("select * from users where id = #{id}")
     User GetExactlyUser(int id);
 

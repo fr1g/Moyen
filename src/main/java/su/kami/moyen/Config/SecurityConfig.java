@@ -14,9 +14,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import su.kami.moyen.Filter.AuthFilter;
+import su.kami.moyen.Filter.ValidPermitFilter;
 import su.kami.moyen.Helper.AdminCodeHelper;
 import su.kami.moyen.Helper.EncryptBridgeHelper;
+import su.kami.moyen.Helper.TokenHelper;
 import su.kami.moyen.Model.Return;
 
 @Configuration
@@ -30,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private EncryptBridgeHelper _ebh;
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable().cors()
@@ -38,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().formLogin()
                 .failureHandler(FailHandler())
                 .successHandler(SuccHandler())
-            .and().addFilter(new AuthFilter(authenticationManager()));
+            .and().addFilterBefore(new ValidPermitFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilter(new AuthFilter(authenticationManager()));
 //                .and().build();
     }
 
@@ -73,11 +78,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected AuthenticationSuccessHandler SuccHandler(){
-        var _r = new Return<String>(200, "success-token: ");
+        var _r = new Return<String>(200, "success-token: " + TokenHelper.Create("genshin"));
         return (request, response, exception) -> {
             response.getWriter().write(_r.toString());
             response.setStatus(200);
         };
     }
+
 
 }
