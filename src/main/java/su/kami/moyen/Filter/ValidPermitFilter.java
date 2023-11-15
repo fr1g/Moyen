@@ -26,10 +26,14 @@ public class ValidPermitFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authentication;
         if(httpServletRequest.getHeader("token") == null) authentication = null;
                 else authentication = TokenHelper.Verify(httpServletRequest.getHeader("token"), "genshin") ?
-                        new UsernamePasswordAuthenticationToken("root", null) : null; // ??? todo ???
+                        new UsernamePasswordAuthenticationToken("root", null, null) : null; // ??? todo ???
+        System.out.println("Received new request with: " + httpServletRequest.getHeader("token"));
         if (null != authentication) {
             // 授权通过 放行
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            authentication.setAuthenticated(true);
+            System.out.println("auth: of: " + authentication + "   Validation: " + TokenHelper.Verify(httpServletRequest.getHeader("token"), "genshin"));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication );
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } else {
             // 授权不通过 返回权限不足
