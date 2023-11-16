@@ -10,7 +10,7 @@ public interface IUsersMapper {
     @Select("select * from users where 1 = 1 limit #{page}, 6")
     List<User> GetPagedUsers(int page);
 
-    @Select("select * from users where name like '%#{name}%' limit #{page}, 6")
+    @Select("select * from users where name like concat('%', concat(#{name,jdbcType=VARCHAR}, '%')) limit #{page,jdbcType=INTEGER}, 6")
     List<User> SearchByUserNamePaged(String name, int page); // NOT FOR MINIMAL
 
     @Select("select * from users where id = #{id}")

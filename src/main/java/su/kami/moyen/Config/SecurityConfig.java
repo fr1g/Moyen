@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         var _r = new Return<String>(440, "not_logged_in");
         return (request, response, exception) -> {
             response.getWriter().write(_r.toString());
-            response.setStatus(200);
+            response.setStatus(440);
         };
     }
 

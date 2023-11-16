@@ -27,19 +27,27 @@ public class LogController {
     public HttpEntity<String> GetLogs(@RequestBody String body){
         try {
             StringBuilder returning = new StringBuilder("[");
-            var result = new ArrayList<Transaction>();
+//            List result;
             // request pattern: get:<page> or uid:<uid>:<page>
             var parsed = body.split(":");
             if(parsed[0].equals("get")){
-                result = (ArrayList<Transaction>) _ls.GetPagedLogs(Integer.parseInt(parsed[1])); // ?
+                var result =  _ls.GetPagedLogs(Integer.parseInt(parsed[1])); // ?
+//                System.out.println(result.size()); 我真的是佛了， 怎么真的只有一条记录啊
+                for(var item : result){
+                    returning.append(item.toString());
+                }
+
             }else if(parsed[0].equals("uid")){
-                result = (ArrayList<Transaction>)
+                var result =
                         _ls.GetUserPagedLogs(Integer.parseInt(parsed[1]),
                                              Integer.parseInt(parsed[2])); // ?
+//                System.out.println(result.size());
+                for(var item : result){
+                    returning.append(item.toString());
+                }
+
             }else return _r.NewEntity(444, "ILLEGAL");
-            for(var item : result){
-                returning.append(item.toString());
-            }
+
             return _r.NewEntity(200, returning.append("]").toString()); // ?
         }catch (Exception ex){
             return _r.NewEntity(555, ex.toString());

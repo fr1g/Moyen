@@ -15,6 +15,7 @@ public interface IUserService {
     void SwitchUserStatus(int uid);
     void UserAddFund(int uid, double add);
     List<User> GetUsersPaged(int page);
+    List<User> SearchUsersPaged(String name, int page);
     User GetExactlyUser(int uid);
 
 }

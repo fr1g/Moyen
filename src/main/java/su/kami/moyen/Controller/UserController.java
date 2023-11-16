@@ -53,7 +53,7 @@ public class UserController {
     @PostMapping("/get")
     public HttpEntity<String> GetPaged(@RequestBody String body) {
         try {
-            // body pattern: p:<page> or u:<uid>
+            // body pattern: p:<page> or u:<uid> or s:<searchword>:<page>
             var parsed = body.split(":");
             if (parsed[0].equals("u")) {
                 var result = _u.GetExactlyUser(Integer.parseInt(parsed[1]));
@@ -65,7 +65,17 @@ public class UserController {
                     if(item.getId() != 0) returning += item.toString();
                 }
                 return _r.NewEntity(200, returning + "]");
-            } else return _r.NewEntity(444, "ILLEGAL");
+            } else if(parsed[0].equals("s")){
+                var result = _u.SearchUsersPaged(parsed[1], Integer.parseInt(parsed[2]));
+                System.out.println(parsed[1] + " " + parsed[2]);
+                var returning = "[";
+                for (var item : result) {
+                    if(item.getId() != 0) returning += item.toString();
+                    System.out.println(item.toString());
+                }
+                return _r.NewEntity(200, returning + "]");
+            }
+            else return _r.NewEntity(444, "ILLEGAL");
         } catch (Exception ex) {
             return _r.NewEntity(555, ex.toString());
         }

@@ -60,6 +60,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public List<User> SearchUsersPaged(String name, int page) {
+        return _user.SearchByUserNamePaged(name, PageHelper.P(page));
+    }
+
+    @Override
     public User GetExactlyUser(int uid) {
         return _user.GetExactlyUser(uid);
     }

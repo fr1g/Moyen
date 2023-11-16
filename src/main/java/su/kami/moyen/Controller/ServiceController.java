@@ -40,13 +40,13 @@ public class ServiceController {
 
     @PostMapping("/create")
     public HttpEntity<String> NewServices(@RequestBody String body){
-        try { // body pattern: only provide <name>:::<describe>:::<cost(double)>
+        try { // body pattern: only provide <name>:::<describe>:::<cost(double)>:::.
             var parsed = body.split(":::");
             var ser = new Service();
             ser.setName(parsed[0]);
             ser.setDescribe(parsed[1]);
             ser.setCost(Double.parseDouble(parsed[2]));
-            ser.setPlus("");
+            ser.setPlus(parsed[3]);
             _ss.NewService(ser);
             return _r.NewEntity(200, "done");
         }catch (Exception ex){
