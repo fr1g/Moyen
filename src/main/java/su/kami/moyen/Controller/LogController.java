@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import su.kami.moyen.Exchange.Service.LogService;
@@ -22,7 +23,7 @@ public class LogController {
     @Autowired
     LogService _ls;
 
-    @GetMapping("/get")
+    @PostMapping("/get")
     public HttpEntity<String> GetLogs(@RequestBody String body){
         try {
             StringBuilder returning = new StringBuilder("[");
@@ -45,7 +46,7 @@ public class LogController {
         }
     }
 
-    @GetMapping("/new")
+    @PostMapping("/new")
     public HttpEntity<String> NewLog(@RequestBody String body){
         try {
             // pattern: <userId>:<serviceId>

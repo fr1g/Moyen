@@ -23,7 +23,7 @@ public interface IUsersMapper {
     @Update("update users set status = #{status} where id = #{uid}")
     void UpdateUserStatus(int status, int uid);
 
-    @Update("update users set status = #{newAcc} where id = #{uid}")
+    @Update("update users set balance = #{newAcc} where id = #{uid}")
     void AddUserFund(double newAcc, int uid);
 
     @Update("update users set contact = #{code} where id = 0")

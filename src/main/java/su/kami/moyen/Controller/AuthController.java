@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import su.kami.moyen.Model.Return;
@@ -14,12 +15,12 @@ public class AuthController {
 
     Return<String> _r = new Return<>();
 
-    @GetMapping("/signout")
+    @PostMapping("/signout")
     public HttpEntity<String> Vanish(@RequestBody String body){
 
         try {
             // body pattern: only a string of token?
-//            Jwts.
+//            Jwts. 行吧！并不能销毁token
         }catch (Exception ex){
 
         }

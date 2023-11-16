@@ -50,6 +50,7 @@ public class UserService implements IUserService {
     @Override
     public void UserAddFund(int uid, double add) {
         var _preset = _user.GetExactlyUser(uid).getBalance();
+        System.out.println(_preset + add);
         _user.AddUserFund(_preset + add, uid);
     }
 

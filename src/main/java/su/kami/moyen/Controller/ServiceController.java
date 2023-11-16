@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import su.kami.moyen.Exchange.Service.ServiceService;
@@ -21,7 +22,7 @@ public class ServiceController {
     @Autowired
     ServiceService _ss;
 
-    @GetMapping("/get")
+    @PostMapping("/get")
     public HttpEntity<String> GetServices(@RequestBody String body){
         try { // body only page
             int page = Integer.parseInt(body);
@@ -37,7 +38,7 @@ public class ServiceController {
         }
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public HttpEntity<String> NewServices(@RequestBody String body){
         try { // body pattern: only provide <name>:::<describe>:::<cost(double)>
             var parsed = body.split(":::");
@@ -53,7 +54,7 @@ public class ServiceController {
         }
     }
 
-    @GetMapping("/update")
+    @PostMapping("/update")
     public HttpEntity<String> UpdateServiceTag(@RequestBody String body){ // which named as: Plus, hash-start, only exist one
         try {// pattern: <sid>:<new-tag>
             var parsed = body.split(":");

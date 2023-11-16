@@ -24,7 +24,7 @@ public class UserController {
         try {
             // body phrase: <name>&&&<contact>
             var user = new User();
-            var parsed = body.split("&&&");
+            var parsed = body.split("&&&"); // unchangeable: since already realized
             user.setName(parsed[0]);
             user.setContact(parsed[1]);
             user.setBalance(0);
@@ -36,21 +36,21 @@ public class UserController {
         }
     }
 
-    @GetMapping("/addfund")
+    @PostMapping("/addfund") // not for minimal?
     public HttpEntity<String> AddFund(@RequestBody String body) {
         try {
-            // body phrase: <uid>&&&<x.xx double>
-            var parsed = body.split("&&&");
+            // body phrase: <uid>:<x.xx double>
+            var parsed = body.split(":");
             var targetUserId = Integer.parseInt(parsed[0]);
             var charge = Double.parseDouble(parsed[1]);
-
+            _u.UserAddFund(targetUserId, charge);
             return _r.NewEntity(200, "done");
         } catch (Exception ex) {
             return _r.NewEntity(555, ex.toString());
         }
     }
 
-    @PostMapping("get")
+    @PostMapping("/get")
     public HttpEntity<String> GetPaged(@RequestBody String body) {
         try {
             // body pattern: p:<page> or u:<uid>
@@ -71,7 +71,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("switch")
+    @PostMapping("/switch")
     public HttpEntity<String> StatSwitch(@RequestBody String body) {
         try {
             // body pattern: only: uid
