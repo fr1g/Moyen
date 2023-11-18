@@ -28,6 +28,7 @@ public interface ITransactionMapper {
     /*
     *
     * */
-    @Insert("insert into logs(uid, sid) value(#{uid}, #{sid})")
-    void NewLog(int uid, int sid);
+    @Insert("insert into logs(uid, sid, `add`) value(#{uid}, #{sid}, #{add})")
+    void NewLog(int uid, int sid, String add);
+
 }

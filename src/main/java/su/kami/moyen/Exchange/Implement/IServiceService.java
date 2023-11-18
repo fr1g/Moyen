@@ -8,4 +8,6 @@ public interface IServiceService {
     void NewService(Service service);
     void UpdatePlus(String plus, int id);
     List<Service> GetPagedServices(int page);
+
+    Service GetExactlyService(int id);
 }

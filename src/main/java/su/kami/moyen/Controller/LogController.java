@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import su.kami.moyen.Exchange.Service.LogService;
+import su.kami.moyen.Exchange.Service.ServiceService;
 import su.kami.moyen.Model.Return;
 import su.kami.moyen.Model.Transaction;
 
@@ -22,6 +23,9 @@ public class LogController {
 
     @Autowired
     LogService _ls;
+
+    @Autowired
+    ServiceService _ss;
 
     @PostMapping("/get")
     public HttpEntity<String> GetLogs(@RequestBody String body){
@@ -59,7 +63,7 @@ public class LogController {
         try {
             // pattern: <userId>:<serviceId>
             var parsed = body.split(":");
-            _ls.NewLog(Integer.parseInt(parsed[0]), Integer.parseInt(parsed[1]));
+            _ls.NewLog(Integer.parseInt(parsed[0]), Integer.parseInt(parsed[1]), "-" + _ss.GetExactlyService(Integer.parseInt(parsed[1])).getCost());
             return _r.NewEntity(200, "done");
         }catch (Exception ex){
             return _r.NewEntity(555, ex.toString());

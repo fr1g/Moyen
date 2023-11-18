@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import su.kami.moyen.Exchange.Service.LogService;
+import su.kami.moyen.Exchange.Service.ServiceService;
 import su.kami.moyen.Exchange.Service.UserService;
 import su.kami.moyen.Model.Return;
+import su.kami.moyen.Model.Transaction;
 import su.kami.moyen.Model.User;
 
 @Controller
@@ -18,6 +21,12 @@ public class UserController {
 
     @Autowired
     UserService _u;
+
+    @Autowired
+    LogService _l;
+
+    @Autowired
+    ServiceService _s;
 
     @PostMapping("/create")
     public HttpEntity<String> CreateUser(@RequestBody String body) {
@@ -44,8 +53,11 @@ public class UserController {
             var targetUserId = Integer.parseInt(parsed[0]);
             var charge = Double.parseDouble(parsed[1]);
             _u.UserAddFund(targetUserId, charge);
+            _l.NewLog(targetUserId, 0, parsed[1]);
+//            _l.NewLog(new Transaction(_u.GetExactlyUser(targetUserId), _s.GetExactlyService(0), parsed[1]));
             return _r.NewEntity(200, "done");
         } catch (Exception ex) {
+            ex.printStackTrace();
             return _r.NewEntity(555, ex.toString());
         }
     }

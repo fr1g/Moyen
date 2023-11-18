@@ -57,6 +57,7 @@ public class ServiceController {
     @PostMapping("/update")
     public HttpEntity<String> UpdateServiceTag(@RequestBody String body){ // which named as: Plus, hash-start, only exist one
         try {// pattern: <sid>:<new-tag>
+            System.out.println(body);
             var parsed = body.split(":");
             _ss.UpdatePlus(parsed[1], Integer.parseInt(parsed[0]));
             return _r.NewEntity(200, "done");

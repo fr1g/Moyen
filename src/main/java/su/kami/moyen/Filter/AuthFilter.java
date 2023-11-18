@@ -17,25 +17,11 @@ import java.util.Map;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
-
-
     public AuthFilter(AuthenticationManager authm){
         this.setAuthenticationManager(authm);
         this.setPostOnly(false);
         this.setRequiresAuthenticationRequestMatcher(new RequestHeaderRequestMatcher("/login", "POST"));
     }
 
-//    @Override
-//    protected void successfulAuthentication(HttpServletRequest request,
-//                                            HttpServletResponse response,
-//                                            FilterChain chain,
-//                                            Authentication authResult)
-//    throws IOException, ServletException {
-//        var th = new TokenHelper();
-//        String token = th.Create("default");
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("token", token);
-//        ResponseUtil.out(response, Result.ok(map));
-//    }
 
 }

@@ -29,11 +29,9 @@ public class LogService implements ILogService {
     }
 
     @Override
-    public void NewLog(int uid, int sid) {
-        _tm.NewLog(uid, sid);
+    public void NewLog(int uid, int sid, String add) {
+        _tm.NewLog(uid, sid, add);
     }
 
-    public void NewLog(Transaction log){
-        this.NewLog(log.getUser().getId(), log.getService().getId());
-    }
+
 }

@@ -30,4 +30,7 @@ public class ServiceService implements IServiceService {
     public List<Service> GetPagedServices(int page) {
         return _s.GetPagedServices(PageHelper.P(page));
     }
+
+    @Override
+    public Service GetExactlyService(int id) {return _s.GetExactlyService(id); }
 }

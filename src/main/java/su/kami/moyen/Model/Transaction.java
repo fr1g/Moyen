@@ -11,6 +11,8 @@ public class Transaction {
     private int id;
     private User user;
     private Service service;
+    private String add;
+
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date date; //TODO if not working change to long.
@@ -24,8 +26,19 @@ public class Transaction {
                 "\", \"serviceId\": \"" + service.getId() +
                 "\", \"serviceName\": \"" + service.getName() +
                 "\", \"date\": \"" + date +
+                "\", \"add\": \"" + add +
                 "\" }, ";
     }
+
+
+    public String getAdd() {
+        return add;
+    }
+
+    public void setAdd(String add) {
+        this.add = add;
+    }
+
 
     public int getId() {
         return id;
